@@ -1,9 +1,10 @@
 {
   "name": "mjml-testing-library",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "Simple MJML DOM testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
+  "files": ["dist/"],
   "author": "Jody Heavener <j.heavener@gmail.com>",
   "license": "MIT",
   "scripts": {
