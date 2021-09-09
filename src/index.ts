@@ -29,6 +29,7 @@ type RenderResult<Q extends Queries = typeof queries> = {
 interface RenderOptions<Q extends Queries = typeof queries> {
   container?: HTMLElement;
   baseElement?: HTMLElement;
+  wrap?: boolean;
   queries?: Q;
   mjmlOptions?: MJMLParsingOptions;
 }
@@ -38,6 +39,7 @@ export const render = <Q extends Queries = typeof queries>(
   {
     container,
     baseElement = container,
+    wrap = false,
     queries,
     mjmlOptions,
   }: RenderOptions<Q> = {}
@@ -52,14 +54,22 @@ export const render = <Q extends Queries = typeof queries>(
 
   mountedContainers.add(container);
 
-  const parsed = mjml2html(ui, mjmlOptions);
-  const body = new JSDOM(parsed.html).window.document.body;
+  if (wrap) {
+    ui = `
+      <mjml>
+        <mj-body>${ui}</mj-body>
+      </mjml>
+    `;
+  }
+
+  const { html, json } = mjml2html(ui, mjmlOptions);
+  const body = new JSDOM(html).window.document.body;
   container.innerHTML = body.innerHTML;
 
   return {
     container,
     baseElement,
-    json: parsed.json,
+    json,
     debug: (el = baseElement, maxLength, options) =>
       Array.isArray(el)
         ? el.forEach((e) => console.log(prettyDOM(e, maxLength, options)))

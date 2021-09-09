@@ -1,6 +1,6 @@
 {
   "name": "mjml-testing-library",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple MJML DOM testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

@@ -1,5 +1,146 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`render can wrap the template with base mjml components 1`] = `
+<div>
+  
+        
+        
+      
+  <div
+    style=""
+  >
+    
+        
+      
+      
+    <!--[if mso | IE]&gt;&lt;table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" &gt;&lt;tr&gt;&lt;td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"&gt;&lt;![endif]-->
+    
+    
+      
+      
+    <div
+      style="margin:0px auto;max-width:600px;"
+    >
+      
+        
+        
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="width:100%;"
+      >
+        
+          
+        <tbody>
+          
+            
+          <tr>
+            
+              
+            <td
+              style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
+            >
+              
+                
+              <!--[if mso | IE]&gt;&lt;table role="presentation" border="0" cellpadding="0" cellspacing="0"&gt;&lt;tr&gt;&lt;td class="" style="vertical-align:top;width:600px;" &gt;&lt;![endif]-->
+              
+            
+      
+              <div
+                class="mj-column-per-100 mj-outlook-group-fix"
+                style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+              >
+                
+        
+      
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="vertical-align:top;"
+                  width="100%"
+                >
+                  
+        
+                  <tbody>
+                    
+          
+              
+                    <tr>
+                      
+                
+                      <td
+                        align="left"
+                        style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                      >
+                        
+                  
+      
+                        <div
+                          style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:10px;line-height:1;text-align:left;color:blue;"
+                        >
+                          This is some text
+                        </div>
+                        
+    
+                
+                      </td>
+                      
+              
+                    </tr>
+                    
+            
+        
+                  </tbody>
+                  
+      
+                </table>
+                
+    
+      
+              </div>
+              
+    
+          
+              <!--[if mso | IE]&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;![endif]-->
+              
+              
+            </td>
+            
+            
+          </tr>
+          
+          
+        </tbody>
+        
+        
+      </table>
+      
+        
+      
+    </div>
+    
+    
+      
+      
+    <!--[if mso | IE]&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;![endif]-->
+    
+    
+    
+      
+  </div>
+  
+    
+      
+    
+  
+</div>
+`;
+
 exports[`render returns the template json 1`] = `
 Object {
   "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
@@ -26,19 +167,19 @@ Object {
                   "content": "This is some text",
                   "file": ".",
                   "includedIn": Array [],
-                  "line": 6,
+                  "line": 7,
                   "tagName": "mj-text",
                 },
               ],
               "file": ".",
               "includedIn": Array [],
-              "line": 5,
+              "line": 6,
               "tagName": "mj-column",
             },
           ],
           "file": ".",
           "includedIn": Array [],
-          "line": 4,
+          "line": 5,
           "tagName": "mj-section",
         },
       ],

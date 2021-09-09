@@ -1,19 +1,24 @@
 import { JSDOM } from 'jsdom';
 import mjml2html from 'mjml';
+import { MJMLJsonWithChildren } from 'mjml-core';
 import { cleanup, render, screen } from './';
 
-const dummyText = 'This is some text';
+const exampleText = 'This is some text';
 
-const template = `
+const unwrappedTemplate = `
+  <mj-section>
+    <mj-column>
+      <mj-text color="blue" font-size="10px">
+        ${exampleText}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+`;
+
+const wrappedTemplate = `
   <mjml>
     <mj-body>
-      <mj-section>
-        <mj-column>
-          <mj-text color="blue" font-size="10px">
-            ${dummyText}
-          </mj-text>
-        </mj-column>
-      </mj-section>
+      ${unwrappedTemplate}
     </mj-body>
   </mjml>
 `;
@@ -22,10 +27,10 @@ describe('render', () => {
   afterEach(cleanup);
 
   it('renders the template into the document', () => {
-    const renderedHtml = mjml2html(template).html;
+    const renderedHtml = mjml2html(wrappedTemplate).html;
     const body = new JSDOM(renderedHtml).window.document.body;
 
-    const { container } = render(template);
+    const { container } = render(wrappedTemplate);
     expect(container.innerHTML).toEqual(body.innerHTML);
     expect(container).toBeInTheDocument();
   });
@@ -52,20 +57,31 @@ describe('render', () => {
   });
 
   it('returns the template json', () => {
-    const renderedJson = mjml2html(template).json;
+    const renderedJson = mjml2html(wrappedTemplate).json;
 
-    const { json } = render(template);
+    const { json } = render(wrappedTemplate);
     expect(json).toStrictEqual(renderedJson);
     expect(json).toMatchSnapshot();
   });
 
+  it('can wrap the template with base mjml components', () => {
+    const { json, container } = render(unwrappedTemplate, {
+      wrap: true,
+      mjmlOptions: { validationLevel: 'strict' },
+    });
+
+    const body = (json as MJMLJsonWithChildren).children[0];
+    expect(body.tagName).toEqual('mj-body');
+    expect(container).toMatchSnapshot();
+  });
+
   it('returns baseElement which defaults to document.body', () => {
-    const { baseElement } = render(template);
+    const { baseElement } = render(wrappedTemplate);
     expect(baseElement).toBe(document.body);
   });
 
   it('supports fragments', () => {
-    const { asFragment } = render(template);
+    const { asFragment } = render(wrappedTemplate);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -81,13 +97,13 @@ describe('render', () => {
     });
 
     it('pretty prints the container', () => {
-      const { debug } = render(template);
+      const { debug } = render(wrappedTemplate);
 
       debug();
 
       expect(console.log).toHaveBeenCalledTimes(1);
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining(dummyText)
+        expect.stringContaining(exampleText)
       );
     });
 
@@ -99,10 +115,10 @@ describe('render', () => {
               <mj-section>
                 <mj-column>
                   <mj-text color="blue" font-size="10px">
-                    ${dummyText}
+                    ${exampleText}
                   </mj-text>
                   <mj-text color="blue" font-size="10px">
-                    ${dummyText}
+                    ${exampleText}
                   </mj-text>
                 </mj-column>
               </mj-section>
@@ -111,12 +127,12 @@ describe('render', () => {
         `
       );
 
-      const multipleElements = screen.getAllByText(dummyText);
+      const multipleElements = screen.getAllByText(exampleText);
       debug(multipleElements);
 
       expect(console.log).toHaveBeenCalledTimes(2);
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining(dummyText)
+        expect.stringContaining(exampleText)
       );
     });
   });
@@ -124,17 +140,17 @@ describe('render', () => {
 
 describe('cleanup', () => {
   it('cleans up the document', () => {
-    render(template);
-    expect(screen.queryByText(dummyText)).toBeInTheDocument();
+    render(wrappedTemplate);
+    expect(screen.queryByText(exampleText)).toBeInTheDocument();
 
     cleanup();
 
-    expect(screen.queryByText(dummyText)).not.toBeInTheDocument();
+    expect(screen.queryByText(exampleText)).not.toBeInTheDocument();
     expect(document.body).toBeEmptyDOMElement();
   });
 
   it('does not error when an element is not a child', () => {
-    render(template, { container: document.createElement('div') });
+    render(wrappedTemplate, { container: document.createElement('div') });
     cleanup();
   });
 });
