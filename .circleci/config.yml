@@ -1,0 +1,32 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1
+
+jobs:
+  test:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: yarn test
+      - store_test_results:
+          path: artifacts/tests
+
+workflows:
+  build_and_test:
+    jobs:
+      - test
