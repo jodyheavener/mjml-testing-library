@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { JSDOM } from 'jsdom';
 import mjml2html from 'mjml';
 import { MJMLJsonWithChildren } from 'mjml-core';
@@ -64,15 +65,37 @@ describe('render', () => {
     expect(json).toMatchSnapshot();
   });
 
-  it('can wrap the template with base mjml components', () => {
-    const { json, container } = render(unwrappedTemplate, {
-      wrap: true,
-      mjmlOptions: { validationLevel: 'strict' },
+  describe('wrap', () => {
+    it('provides base mjml components when true', () => {
+      const { json, container } = render(unwrappedTemplate, {
+        wrap: true,
+        mjmlOptions: { validationLevel: 'strict' },
+      });
+
+      const body = (json as MJMLJsonWithChildren).children[0];
+      expect(body.tagName).toEqual('mj-body');
+      expect(container).toMatchSnapshot();
     });
 
-    const body = (json as MJMLJsonWithChildren).children[0];
-    expect(body.tagName).toEqual('mj-body');
-    expect(container).toMatchSnapshot();
+    it('allows you to provide your own wrapper', () => {
+      const { json, container } = render(unwrappedTemplate, {
+        wrap: (content: string) => `
+          <mjml>
+            <mj-body css-class="hello">
+              ${content}
+            </mj-body>
+          </mjml>
+        `,
+        mjmlOptions: { validationLevel: 'strict' },
+      });
+
+      const body = (json as MJMLJsonWithChildren).children[0];
+      expect(body.tagName).toEqual('mj-body');
+      expect((body.attributes as Record<string, string>)['css-class']).toEqual(
+        'hello'
+      );
+      expect(container).toMatchSnapshot();
+    });
   });
 
   it('returns baseElement which defaults to document.body', () => {

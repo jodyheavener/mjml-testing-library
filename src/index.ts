@@ -29,7 +29,7 @@ type RenderResult<Q extends Queries = typeof queries> = {
 interface RenderOptions<Q extends Queries = typeof queries> {
   container?: HTMLElement;
   baseElement?: HTMLElement;
-  wrap?: boolean;
+  wrap?: boolean | ((content: string) => string);
   queries?: Q;
   mjmlOptions?: MJMLParsingOptions;
 }
@@ -39,7 +39,7 @@ export const render = <Q extends Queries = typeof queries>(
   {
     container,
     baseElement = container,
-    wrap = false,
+    wrap,
     queries,
     mjmlOptions,
   }: RenderOptions<Q> = {}
@@ -54,12 +54,16 @@ export const render = <Q extends Queries = typeof queries>(
 
   mountedContainers.add(container);
 
-  if (wrap) {
-    ui = `
-      <mjml>
-        <mj-body>${ui}</mj-body>
-      </mjml>
-    `;
+  if (wrap != null) {
+    if (typeof wrap === 'function') {
+      ui = wrap(ui);
+    } else if (wrap === true) {
+      ui = `
+        <mjml>
+          <mj-body>${ui}</mj-body>
+        </mjml>
+      `;
+    }
   }
 
   const { html, json } = mjml2html(ui, mjmlOptions);
