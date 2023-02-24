@@ -58,9 +58,13 @@ describe('render', () => {
   });
 
   it('returns the template json', () => {
-    const renderedJson = mjml2html(wrappedTemplate).json;
+    const renderedJson = mjml2html(wrappedTemplate, {
+      actualPath: '/',
+    }).json;
 
-    const { json } = render(wrappedTemplate);
+    const { json } = render(wrappedTemplate, {
+      mjmlOptions: { actualPath: '/' },
+    });
     expect(json).toStrictEqual(renderedJson);
     expect(json).toMatchSnapshot();
   });
