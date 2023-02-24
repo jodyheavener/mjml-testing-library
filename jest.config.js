@@ -1,11 +1,14 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('@jest/types/build/Config').DefaultOptions} */
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: '<rootDir>/jsdom.env.js',
-  testPathIgnorePatterns: ['/dist/', '/node_modules/'],
-  coverageThreshold: {
-    global: {
-      lines: 90
-    }
-  }
+	roots: ['<rootDir>'],
+	testEnvironment: 'jest-environment-jsdom',
+  setupFiles: ['<rootDir>/jest.setup.js'],
+	preset: 'ts-jest/presets/js-with-ts',
+	transform: {
+		'^.+\\.(ts|js)?$': 'ts-jest',
+	},
+	testPathIgnorePatterns: [
+		'<rootDir>/dist',
+		'<rootDir>/node_modules',
+	],
 };

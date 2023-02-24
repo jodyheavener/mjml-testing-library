@@ -1,5 +1,5 @@
 import {
-  BoundFunction,
+  BoundFunctions,
   getQueriesForElement,
   prettyDOM,
   prettyFormat,
@@ -22,9 +22,7 @@ type RenderResult<Q extends Queries = typeof queries> = {
     options?: prettyFormat.OptionsReceived
   ) => void;
   asFragment: () => DocumentFragment;
-} & {
-  [P in keyof Q]: BoundFunction<Q[P]>;
-};
+} & BoundFunctions<Q>;
 
 interface RenderOptions<Q extends Queries = typeof queries> {
   container?: HTMLElement;
@@ -89,7 +87,7 @@ export const render = <Q extends Queries = typeof queries>(
         return template.content;
       }
     },
-    ...getQueriesForElement(baseElement, queries),
+    ...getQueriesForElement<Q>(baseElement, queries),
   };
 };
 

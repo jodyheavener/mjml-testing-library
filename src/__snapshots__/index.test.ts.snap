@@ -1,55 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render returns the template json 1`] = `
-Object {
+{
   "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
-  "attributes": Object {},
-  "children": Array [
-    Object {
+  "attributes": {},
+  "children": [
+    {
       "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
-      "attributes": Object {},
-      "children": Array [
-        Object {
+      "attributes": {},
+      "children": [
+        {
           "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
-          "attributes": Object {},
-          "children": Array [
-            Object {
+          "attributes": {},
+          "children": [
+            {
               "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
-              "attributes": Object {},
-              "children": Array [
-                Object {
+              "attributes": {},
+              "children": [
+                {
                   "absoluteFilePath": "/Users/jody/Downloads/Repositories/mjml-testing-library",
-                  "attributes": Object {
+                  "attributes": {
                     "color": "blue",
                     "font-size": "10px",
                   },
                   "content": "This is some text",
                   "file": ".",
-                  "includedIn": Array [],
+                  "includedIn": [],
                   "line": 7,
                   "tagName": "mj-text",
                 },
               ],
               "file": ".",
-              "includedIn": Array [],
+              "includedIn": [],
               "line": 6,
               "tagName": "mj-column",
             },
           ],
           "file": ".",
-          "includedIn": Array [],
+          "includedIn": [],
           "line": 5,
           "tagName": "mj-section",
         },
       ],
       "file": ".",
-      "includedIn": Array [],
+      "includedIn": [],
       "line": 3,
       "tagName": "mj-body",
     },
   ],
   "file": ".",
-  "includedIn": Array [],
+  "includedIn": [],
   "line": 2,
   "tagName": "mjml",
 }
@@ -58,8 +58,8 @@ Object {
 exports[`render supports fragments 1`] = `
 <DocumentFragment>
   
-        
-        
+    
+    
       
   <div
     style=""
@@ -190,8 +190,8 @@ exports[`render supports fragments 1`] = `
   </div>
   
     
-      
-    
+  
+
   
 </DocumentFragment>
 `;
@@ -199,8 +199,8 @@ exports[`render supports fragments 1`] = `
 exports[`render wrap allows you to provide your own wrapper 1`] = `
 <div>
   
-        
-        
+    
+    
       
   <div
     class="hello"
@@ -332,8 +332,8 @@ exports[`render wrap allows you to provide your own wrapper 1`] = `
   </div>
   
     
-      
-    
+  
+
   
 </div>
 `;
@@ -341,8 +341,8 @@ exports[`render wrap allows you to provide your own wrapper 1`] = `
 exports[`render wrap provides base mjml components when true 1`] = `
 <div>
   
-        
-        
+    
+    
       
   <div
     style=""
@@ -473,8 +473,8 @@ exports[`render wrap provides base mjml components when true 1`] = `
   </div>
   
     
-      
-    
+  
+
   
 </div>
 `;
